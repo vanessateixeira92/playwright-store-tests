@@ -25,9 +25,11 @@ test.describe("Store flow testes", () => {
     await inventoryPage.increaseQuantity(product.name);
   });
 
-  // Store Flow: Catalog and Cart Pages
-  test("Add product from catalog to cart", async ({ page }) => {
+  // Full flow: Catalog -> Cart -> Payment -> Order
+  test("Add product from catalog, complete payment, and create order", async () => {
     const productName = "Lightsaber (Star Wars)";
-    await store.addProductFromCatalogToCart(productName);
+    const paymentMethod = "PayPal";
+
+    await store.addProductPayAndOrder(productName, paymentMethod);
   });
 });

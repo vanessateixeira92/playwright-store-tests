@@ -34,7 +34,7 @@ export class CartPage {
 
       expect(match, "Could not extract quantity from cart row").not.toBeNull();
 
-      const extractedQty = Number(match[1]);
+      const extractedQty = parseFloat(match[1].replace(",", ""));
 
       expect(extractedQty).toBe(quantity);
     });
@@ -42,6 +42,7 @@ export class CartPage {
 
   // === Get cart total ===
   async getCartTotal() {
-    return this.page.getByTestId("cart-total").innerText();
+    const text = await this.page.getByTestId("cart-total").innerText();
+    return text.replace(/[^\d.]/g, "");
   }
 }
